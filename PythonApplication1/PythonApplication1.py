@@ -36,12 +36,26 @@ def ConviertePDFaTXT(a):
         os.system("Pause")
         return file1
 
+def depurarInformacion(file1):
+    print("Depurando campos del  CSF que no sean de utilidad")
+    print("**************************************")
+    print("\n *depurando* \n")
+    file1=open(r"C:\Users\mmartinez\Documents\Tapi America Constancia de Situacion Fiscal 14-11-22.txt","w")
+    print("**************************************")
+    print("Tratamiento de cadenas")
+    print("**************************************")
+    print("Validacion de cadenas")
+    print("**************************************")
+    print("Archivo .TXT depurado ")
+    print("**************************************")
 
 def Inicio():
     print ("Este herramienta convierte de pdf a txt \nRealiza la extraccion de datos de una CSF \nPosteriormente arroja la sentencia SQL para realizar un update/insert")
-    os.system("Pause")
+    os.system("Pause \n")
     print("**************************************")
     a = "C:/Users/mmartinez/Documents/Tapi America Constancia de Situacion Fiscal 14-11-22.pdf"
     ConviertePDFaTXT(a)
-
+    b = "C:/Users/mmartinez/Documents/Tapi America Constancia de Situacion Fiscal 14-11-22.txt" 
+    depurarInformacion(a)
+    
 Inicio()
