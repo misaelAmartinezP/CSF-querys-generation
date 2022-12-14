@@ -23,18 +23,30 @@ def ConviertePDFaTXT(archivo, nombreAr):
         print("Generando archivo .txt")
         print("**************************************")
         print ("Guardando los datos de CSF hoja 1")
-        file1=open(r"archivo","w")    
+        archivoTxt= "C:/Users/mmartinez/Documents/" + nombreAr +".txt"
+        file1=open(archivoTxt,"w")    
         file1.writelines(guardaRFC)
         print("**************************************")
         print ("Guardando los datos de CSF hoja 2")
-        file1=open(nombreAr.txt,"ra")
+        file1=open(archivoTxt,"a")
         file1.writelines(guardaRFC1)
         print("**************************************")
         print("Archivo .TXT creado")
         print("**************************************")
         os.system("Pause")
-        return file1
 
+
+def borrar(nombreAr):
+    archivoTxt= os.path.join("C:/Users/mmartinez/Documents/" + nombreAr +".txt")
+    l1 = []
+    with open(archivoTxt, 'r') as fp:
+        l1 = fp.readlines()
+    with open(archivoTxt, 'w') as fp:
+        for number, line in enumerate(l1):
+           if number in [2,4,24,25,26,27,28,44]:
+               fp.write(line)
+    os.system("Pause")
+    
 
 def Inicio():
     print ("Este herramienta convierte de pdf a txt \nRealiza la extraccion de datos de una CSF \nPosteriormente arroja la sentencia SQL para realizar un update/insert \n")
@@ -45,7 +57,7 @@ def Inicio():
     #print (archivoIn)
     archivo =  os.path.join("C:/Users/mmartinez/Documents/" + nombreAr +".pdf")
     ConviertePDFaTXT(archivo, nombreAr)
-    #print(archivo)
+    borrar(nombreAr)
 
 
 Inicio()
