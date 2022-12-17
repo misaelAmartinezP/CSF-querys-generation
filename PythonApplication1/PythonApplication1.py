@@ -23,7 +23,7 @@ def ConviertePDFaTXT(archivo, nombreAr):
         print("Generando archivo .txt")
         print("**************************************")
         print ("Guardando los datos de CSF hoja 1")
-        archivoTxt= "C:/Users/mmartinez/Documents/" + nombreAr +".txt"
+        archivoTxt= "C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt"
         file1=open(archivoTxt,"w")    
         file1.writelines(guardaRFC)
         print("**************************************")
@@ -37,27 +37,43 @@ def ConviertePDFaTXT(archivo, nombreAr):
 
 
 def borrar(nombreAr):
-    archivoTxt= os.path.join("C:/Users/mmartinez/Documents/" + nombreAr +".txt")
+    archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
     l1 = []
     with open(archivoTxt, 'r') as fp:
         l1 = fp.readlines()
     with open(archivoTxt, 'w') as fp:
         for number, line in enumerate(l1):
-           if number in [2,4,24,25,26,27,28,44]:
-               fp.write(line)
+           if number in [2,4,5,24,25,26,27,28,44]:
+               if number == 2:
+                    if (len(l1) == 11 or 12):
+                         fp.write(line)
+               if number == 4:
+                   if (1==1):
+                        fp.write(line)
+               if number ==  5:
+                    
+               #fp.write(line)
     os.system("Pause")
-    
+
+def separaPalabras(nombreAr):
+     archivoTxt1= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+     datos2 = []
+     with open(archivoTxt1) as fname:
+	     for lineas in fname:
+		     datos2.extend(lineas.split(' '))
+     print (datos2)
+   
+
 
 def Inicio():
     print ("Este herramienta convierte de pdf a txt \nRealiza la extraccion de datos de una CSF \nPosteriormente arroja la sentencia SQL para realizar un update/insert \n")
     os.system("Pause")
-    nombreAr = input("introduzca el nombre del archivo que se encuentra en la direccion: C:/Users/mmartinez/Documents/")
+    nombreAr = input("introduzca el nombre del archivo que se encuentra en la direccion: C:/Users/mmartinez/Documents/CSF/")
     #aqui se deberia cambiar la ruta dependiendo de la computadora y en donde se tengan las CSF
     print("**************************************")
-    #print (archivoIn)
-    archivo =  os.path.join("C:/Users/mmartinez/Documents/" + nombreAr +".pdf")
+    archivo =  os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".pdf")
     ConviertePDFaTXT(archivo, nombreAr)
     borrar(nombreAr)
-
+    #separaPalabras(nombreAr)
 
 Inicio()
