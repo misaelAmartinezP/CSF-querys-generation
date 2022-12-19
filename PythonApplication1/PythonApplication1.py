@@ -45,24 +45,33 @@ def borrar(nombreAr):
         for number, line in enumerate(l1):
            if number in [2,4,5,24,25,26,27,28,44]:
                if number == 2:
-                    if (len(l1) == 11 or 12):
+                    if (len(line) == 11 or 12):
                          fp.write(line)
                if number == 4:
-                   if (1==1):
+                    if (1==1):
                         fp.write(line)
                if number ==  5:
-                    
+                    if (len(line) !=30):
+                        fp.write(line)
+               if number == 24:
+                    if (1==1):
+                        fp.write(line)
+               if number == 25:
+                    if (1==1):
+                        fp.write(line)
+               if number == 26:
+                    if (1==1):
+                        fp.write(line)
+               if number == 27:
+                    if (1==1):
+                        fp.write(line)
+               if number == 28:
+                    if (1==1):
+                        fp.write(line)
+
                #fp.write(line)
     os.system("Pause")
-
-def separaPalabras(nombreAr):
-     archivoTxt1= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
-     datos2 = []
-     with open(archivoTxt1) as fname:
-	     for lineas in fname:
-		     datos2.extend(lineas.split(' '))
-     print (datos2)
-   
+  
 
 
 def Inicio():
@@ -73,6 +82,8 @@ def Inicio():
     print("**************************************")
     archivo =  os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".pdf")
     ConviertePDFaTXT(archivo, nombreAr)
+    print("**************************************")
+    print("Parceando informacion")
     borrar(nombreAr)
     #separaPalabras(nombreAr)
 
