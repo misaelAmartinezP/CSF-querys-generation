@@ -54,11 +54,13 @@ def borrar(nombreAr):
                     if (len(line) !=30):
                         fp.write(line)
                if number == 24:
-                    if (1==1):
-                        fp.write(line)
+                    if (len(line) != 32):
+                        if (len(line) !=21):
+                             fp.write(line)
                if number == 25:
-                    if (1==1):
-                        fp.write(line)
+                    if (len(line) != 32):
+                        if (len(line) !=21):
+                             fp.write(line)
                if number == 26:
                     if (1==1):
                         fp.write(line)
