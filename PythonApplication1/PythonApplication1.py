@@ -43,35 +43,38 @@ def borrar(nombreAr):
         l1 = fp.readlines()
     with open(archivoTxt, 'w') as fp:
         for number, line in enumerate(l1):
-           if number in [2,4,5,24,25,26,27,28,44]:
+           if number in [2,4,5,24,25,26,27,30,44]:
                if number == 2:
                     if (len(line) == 11 or 12):
                          fp.write(line)
+                         print(line.split(' '))
                if number == 4:
                     if (1==1):
                         fp.write(line)
+                        print(line.split(' '))
                if number ==  5:
                     if (len(line) !=30):
                         fp.write(line)
+                        print(line.split(' '))
                if number == 24:
                     if (len(line) != 32):
                         if (len(line) !=21):
                              fp.write(line)
+                             print(line.split(' '))
                if number == 25:
                     if (len(line) != 32):
                         if (len(line) !=21):
                              fp.write(line)
+                             print(line.split(' '))
                if number == 26:
                     if (1==1):
                         fp.write(line)
+                        print(line.split(' '))
                if number == 27:
-                    if (1==1):
-                        fp.write(line)
-               if number == 28:
-                    if (1==1):
-                        fp.write(line)
+                    print(line.split(' '))
+                    fp.write(line)
+               
 
-               #fp.write(line)
     os.system("Pause")
   
 
