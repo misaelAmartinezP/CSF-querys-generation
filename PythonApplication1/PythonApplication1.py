@@ -1,40 +1,14 @@
 
-from PyPDF2 import PdfFileReader
+
+import aspose.words as aw
 import os
 
-def ConviertePDFaTXT(archivo, nombreAr):
-    with open(archivo, "rb") as filehandle:
-        pdf = PdfFileReader(filehandle)
-        print("Leyendo Paginas de la CSF")
-        os.system("Pause")
-        print("**************************************")
-        page1 = pdf.getPage(0)
-        page2 = pdf.getPage(1)
-        #print(page1)
-        #print(page2)
-        print("Guardando Valores de la CSF")
-        os.system("Pause")
-        print("**************************************")
-        guardaRFC=page1.extractText()
-        guardaRFC1=page2.extractText()
-        #print ("monstando los valores de CSF")
-        #print(guardaRFC)
-        #print(guardaRFC1)
-        print("Generando archivo .txt")
-        print("**************************************")
-        print ("Guardando los datos de CSF hoja 1")
-        archivoTxt= "C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt"
-        file1=open(archivoTxt,"w")    
-        file1.writelines(guardaRFC)
-        print("**************************************")
-        print ("Guardando los datos de CSF hoja 2")
-        file1=open(archivoTxt,"a")
-        file1.writelines(guardaRFC1)
-        print("**************************************")
-        print("Archivo .TXT creado")
-        print("**************************************")
-        os.system("Pause")
 
+def conviertePDFaTXT(archivo, nombreAr):
+        doc = aw.Document(archivo)
+        print("Generando el .txt")
+        doc.save("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+        print("Documento Generado")
 
 def borrar(nombreAr):
     archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
@@ -43,53 +17,65 @@ def borrar(nombreAr):
         l1 = fp.readlines()
     with open(archivoTxt, 'w') as fp:
         for number, line in enumerate(l1):
-           if number in [2,4,5,24,25,26,27,30,44]:
-               if number == 2:
-                    if (len(line) == 11 or 12):
-                         fp.write(line)
-                         print(line.split(' '))
+           if number in [4,5,6,45,46,47,48,50,51,52,53,54,67,69]:
                if number == 4:
+                    if (len(line) == 12):
+                         fp.write(line)
+                    elif(len(line)==13):
+                         fp.write(line)
+                    elif(len(line)>=14):
+                        x=line.split(' ')
+                        fp.write(x[0]+"\n")
+               if number == 5:
+                    if (len(line)!=35):
+                        fp.write(line)
+               if number ==  6:
+                     if (1==1):
+                         x=line.split(' ')
+                         print(x)
+                         fp.write(x[0]+""+ x[1]+"\n")
+               if number == 45:
+                     if (1==1):
+                        fp.write(line)
+               if number == 46:
+                     if (1==1):
+                        fp.write(line)
+               if number == 47:
                     if (1==1):
                         fp.write(line)
-                        print(line.split(' '))
-               if number ==  5:
-                    if (len(line) !=30):
-                        fp.write(line)
-                        print(line.split(' '))
-               if number == 24:
-                    if (len(line) != 32):
-                        if (len(line) !=21):
-                             fp.write(line)
-                             print(line.split(' '))
-               if number == 25:
-                    if (len(line) != 32):
-                        if (len(line) !=21):
-                             fp.write(line)
-                             print(line.split(' '))
-               if number == 26:
+               if number == 48:
                     if (1==1):
                         fp.write(line)
-                        print(line.split(' '))
-               if number == 27:
-                    print(line.split(' '))
-                    fp.write(line)
-               
-
+               if number == 50:
+                    if (1==1):
+                        fp.write(line)
+               if number == 51:
+                    if (1==1):
+                        fp.write(line)
+               if number == 52:
+                    if (1==1):
+                        fp.write(line)
+               if number == 53:
+                    if (1==1):
+                        fp.write(line)
+               if number == 54:
+                    if (1==1):
+                        fp.write(line)
+               if number == 67:
+                    if (1==1):
+                        fp.write(line)
+               if number == 69:
+                    if (1==1):
+                        fp.write(line)
+               #fp.write(line)
     os.system("Pause")
   
 
 
-def Inicio():
-    print ("Este herramienta convierte de pdf a txt \nRealiza la extraccion de datos de una CSF \nPosteriormente arroja la sentencia SQL para realizar un update/insert \n")
-    os.system("Pause")
-    nombreAr = input("introduzca el nombre del archivo que se encuentra en la direccion: C:/Users/mmartinez/Documents/CSF/")
-    #aqui se deberia cambiar la ruta dependiendo de la computadora y en donde se tengan las CSF
-    print("**************************************")
-    archivo =  os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".pdf")
-    ConviertePDFaTXT(archivo, nombreAr)
-    print("**************************************")
-    print("Parceando informacion")
-    borrar(nombreAr)
-    #separaPalabras(nombreAr)
+def inicio():
+        nombreAr = input("introduzca el nombre del archivo que se encuentra en la direccion: C:/Users/mmartinez/Documents/CSF/")
+        archivo =  os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".pdf")
+        conviertePDFaTXT(archivo,nombreAr)
+        borrar(nombreAr)
 
-Inicio()
+inicio()
