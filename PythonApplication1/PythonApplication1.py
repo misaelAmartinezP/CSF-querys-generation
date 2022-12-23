@@ -25,8 +25,8 @@ def borrar(nombreAr):
                          fp.write(line)
                          print(line)
                     elif(len(line)>=14):
-                        x=line.split(' ')
-                        fp.write(x[0]+"\n")
+                        rfc=line.split(' ')
+                        fp.write(rfc[0]+"\n")
                         print(line)
                if number == 5: #razon social
                     print(number, line)
@@ -38,22 +38,22 @@ def borrar(nombreAr):
                    print(number, line)
                    print(len(line))
                    if(len(line)!=38):#razon social con cadena encimado de 'Nombre'
-                        x=line.split(' ')
-                        arr=[]
-                        for i in x:
+                        raSo=line.split(' ')
+                        raSoArr=[]
+                        for i in raSo:
                             if (i != 'Nombre,'):
-                                arr.append(i)
+                                raSoArr.append(i)
                             elif (i=='Nombre,'):
                                 break
-                        fp.write(" ".join(arr)+"\n")
-                        print(" ".join(arr)+"\n")
+                        fp.write(" ".join(raSoArr)+"\n")
+                        print(" ".join(raSoArr)+"\n")
                if number == 45: #codigo postal
                      print(number, line)
                      print(len(line))
                      if (len(line)!=1):
-                         if (len(line) == 21):
-                             x=line.split(':')
-                             fp.write(x[1])
+                         if (len(line) == 21):#division del codigo postal 
+                             cp=line.split(':')
+                             fp.write(cp[1])
                              print(line)
                          else:
                              fp.write(line)
@@ -63,63 +63,84 @@ def borrar(nombreAr):
                     print(len(line))
                     if (len(line)!=1):
                       if (len(line) == 21): #division del codigo postal 
-                             x=line.split(':')
-                             fp.write(x[1])
-                             print(x[1])
+                             cp=line.split(':')
+                             fp.write(cp[1])
+                             print(cp[1])
                       elif(len(line) >=22): #numero interior
-                              x=line.partition('NÃºmero Interior:') 
-                              x1=list(x)
-                              print(x1)
-                              fp.write(x1[0]+"\n") #guarda nombre de vialidad 
-                              fp.write(x1[1]+" "+x1[2])#guarda numero interior
-                              print(x1[0])
-                              print(x1[1]+" "+x1[2])
-                    else:
-                            x=line.partition
+                              numInt=line.partition('NÃºmero Interior:') 
+                              numIntl=list(cp)
+                              print(numIntl)
+                              fp.write(numIntl[0]+"\n") #guarda nombre de vialidad 
+                              fp.write(numIntl[1]+" "+numIntl[2])#guarda numero interior
+                              print(numIntl[0])
+                              print(numIntl[1]+" "+numIntl[2])
+
                if number == 47:#codigo postal y nombre de vialidad
                     print(number, line)
                     print(len(line))
                     if (len(line)!=1):
-                      if (len(line) == 21):#division del codigo postal
-                             x=line.split(':')
-                             fp.write(x[1])
-                             print(x[1])
-                      elif(len(line) >=22): #numero interior
-                              x=line.partition('NÃºmero Interior:') 
-                              x1=list(x)
-                              print(x1)
-                              fp.write(x1[0]+"\n") #guarda nombre de vialidad 
-                              fp.write(x1[1]+" "+x1[2])#guarda numero interior
-                              print(x1[0])
-                              print(x1[1]+" "+x1[2])
-                    else:
-                            x=line.partition
-               if number == 48:#nombre de vialidad
+                      if (len(line)!=1):
+                        if(len(line) >=22): #numero interior
+                              numInt=line.partition('NÃºmero Interior:')
+                              if ('NÃºmero Interior:' in numInt):
+                                  print("true")
+                                  numIntl=list(numInt)
+                                  print(numIntl)
+                                  fp.write(numIntl[0]+"\n") #guarda nombre de vialidad 
+                                  fp.write(numIntl[1]+" "+x1[2])#guarda numero interior
+                                  print(numIntl[0])
+                                  print(numIntl[1]+" "+numIntl[2])
+
+               if number == 48:#nombre de vialidad, quitar linea nombre entidad federativa 
                     print(number,line)
                     print(len(line))
                     if (len(line)!=1):
                         if(len(line) >=22): #numero interior
-                              x=line.partition('NÃºmero Interior:') 
-                              x1=list(x)
-                              print(x1)
-                              fp.write(x1[0]+"\n") #guarda nombre de vialidad 
-                              fp.write(x1[1]+" "+x1[2])#guarda numero interior
-                              print(x1[0])
-                              print(x1[1]+" "+x1[2])
-                    else:
-                            x=line.partition
-               if number == 49:#
+                              numInt=line.partition('NÃºmero Interior:')
+                              if ('NÃºmero Interior:' in numInt):
+                                  print("true")
+                                  numIntl=list(numInt)
+                                  print(numIntl)
+                                  fp.write(numIntl[0]+"\n") #guarda nombre de vialidad 
+                                  fp.write(numIntl[1]+" "+numIntl[2])#guarda numero interior
+                                  print(numIntl[0])
+                                  print(numIntl[1]+" "+numIntl[2])
+                              else:
+                                  nomLoc=line.partition('Nombre de la Localidad:')
+                                  if('Nombre de la Localidad:' in nomLoc):
+                                        print("nombre de la localidad no se guarda")
+               if number == 49:# quitar linea nombre entidad federativa 
                     print(number,line)
-                    if (1==1):
-                        fp.write(line)
-               if number == 50:#
-                    print(number, line)
-                    if (1==1):
-                        fp.write(line)
-               if number == 51:
+                    nomLoc=line.partition('Nombre de la Localidad:')
+                    if('Nombre de la Localidad:' in nomLoc):#nombre de la localidad no se guarda en el txt
+                        print("nombre de la localidad no se guarda")
+                    else: 
+                        nomEnt=line.partition('Nombre de la Entidad Federativa:')
+                        if('Nombre de la Entidad Federativa:' in nomEnt):#nombre de la entidad no se guarda en el txt
+                             print("no se imprime nombre de la entidad federativa")
+                        else:
+                            telfijo=line.partition('Tel. Fijo Lada:')#tel fijo no se guarda
+                            if('Tel. Fijo Lada:' in telfijo):
+                                print("no se imprime el telefono fijo")
+                            else:
+                                fp.write(line)
+                                print(line)
+               if number == 50:#quitar linea nombre entidad federativa 
                     print(number,line)
-                    if (1==1):
-                        fp.write(line)
+                    nomEnt=line.partition('Nombre de la Entidad Federativa:')
+                    if('Nombre de la Localidad:' in nomEnt):#nombre de la localidad no se guarda en el txt
+                         print("nombre de la entidad no se guarda")
+                    else: 
+                        entid=line.partition('Nombre de la Entidad Federativa:')
+                        if('Nombre de la Entidad Federativa:' in entid):#nombre de la entidad no se guarda en el txt
+                             print("no se imprime nombre de la entidad federativa")
+                        else:
+                            telfijo=line.partition('Tel. Fijo Lada:')#tel fijo no se guarda
+                            if('Tel. Fijo Lada:' in telfijo):
+                                print("no se imprime el telefono fijo")
+                            else:
+                                fp.write(line)
+                                print(line)
                if number == 52:
                     print(number,line)
                     if (1==1):
