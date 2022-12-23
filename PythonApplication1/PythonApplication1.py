@@ -137,7 +137,7 @@ def borrar(nombreAr):
                         else:
                             telfijo=line.partition('Tel. Fijo Lada:')#tel fijo no se guarda
                             if('Tel. Fijo Lada:' in telfijo):
-                                print("no se imprime el telefono fijo")
+                                print("no se imprime el telefono fijo") 
                             else:
                                 fp.write(line)
                                 print(line)
