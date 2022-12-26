@@ -140,7 +140,7 @@ def borrar(nombreAr):
                     nomEnt=line.partition('Nombre de la Entidad Federativa:')
                     if('Nombre de la Localidad:' in nomEnt):#nombre de la localidad no se guarda en el txt
                          print("nombre de la entidad no se guarda")
-                    else: 
+                    elif('Nombre de la Localidad:' not in nomEnt):
                         entid=line.partition('Nombre de la Entidad Federativa:')
                         if('Nombre de la Entidad Federativa:' in entid):#nombre de la entidad no se guarda en el txt
                              print("no se imprime nombre de la entidad federativa")
@@ -151,10 +151,26 @@ def borrar(nombreAr):
                             else:
                                 fp.write(line)
                                 print(line)
+                    else:
+                        tipoVialid=line.partition('Tipo de Vialidad:')
+                        if ('Tipo de Vialidad:' in tipoVialid):
+                            tipoViaL=list(tipoVialid)
+                            print(tipoViaL)
+                            fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad 
+               if number == 51:
+                    print(number,line)
+                    tipoVialid=line.partition('Tipo de Vialidad:')
+                    if ('Tipo de Vialidad:' in tipoVialid):
+                         tipoViaL=list(tipoVialid)
+                         print(tipoViaL)
+                         fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad 
                if number == 52:
                     print(number,line)
-                    if (1==1):
-                        fp.write(line)
+                    tipoVialid=line.partition('Tipo de Vialidad:')
+                    if ('Tipo de Vialidad:' in tipoVialid):
+                         tipoViaL=list(tipoVialid)
+                         print(tipoViaL)
+                         fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad  
                if number == 53:
                     print(number,line)
                     if (1==1):
@@ -181,4 +197,4 @@ def inicio():#funcion en donde se introduce la ruta del archivo y el nombre del 
         conviertePDFaTXT(archivo,nombreAr)
         borrar(nombreAr)
 
-inicio()#inici del programa
+inicio()#inicio del programa
