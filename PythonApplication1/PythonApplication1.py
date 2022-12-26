@@ -68,29 +68,39 @@ def borrar(nombreAr):
                              print(cp[1])
                       elif(len(line) >=22): #numero interior
                               numInt=line.partition('NÃºmero Interior:') 
-                              numIntl=list(cp)
-                              print(numIntl)
-                              fp.write(numIntl[0]+"\n") #guarda nombre de vialidad 
-                              fp.write(numIntl[1]+" "+numIntl[2])#guarda numero interior
-                              print(numIntl[0])
-                              print(numIntl[1]+" "+numIntl[2])
-
+                              if ('NÃºmero Interior:' in numInt):
+                                  numIntl=list(cp)
+                                  print(numIntl)
+                                  fp.write(numIntl[0]+"\n") #guarda nombre de vialidad 
+                                  fp.write(numIntl[1]+" "+numIntl[2])#guarda numero interior
+                                  print(numIntl[0])
+                                  print(numIntl[1]+" "+numIntl[2])
+                              else: 
+                                  print(line)
+                                  fp.write(line)
                if number == 47:#codigo postal y nombre de vialidad
                     print(number, line)
                     print(len(line))
                     if (len(line)!=1):
-                      if (len(line)!=1):
+                        if (len(line) == 21): #division del codigo postal 
+                             cp=line.split(':')
+                             fp.write(cp[1])
+                             print(cp[1])
                         if(len(line) >=22): #numero interior
                               numInt=line.partition('NÃºmero Interior:')
                               if ('NÃºmero Interior:' in numInt):
                                   print("true")
                                   numIntl=list(numInt)
                                   print(numIntl)
-                                  fp.write(numIntl[0]+"\n") #guarda nombre de vialidad 
-                                  fp.write(numIntl[1]+" "+x1[2])#guarda numero interior
-                                  print(numIntl[0])
+                                  fp.write(numIntl[0]+"\n")
+                                  fp.write(numIntl[1]+" "+numInt[2])#guarda numero interior
+                                  print(numIntl[0]+"\n")
                                   print(numIntl[1]+" "+numIntl[2])
-
+                              else:
+                                    nomVia=line.partition('Nombre de Vialidad:')
+                                    if('Nombre de Vialidad:' in nomVia):
+                                        print(line)
+                                        fp.write(line)
                if number == 48:#nombre de vialidad, quitar linea nombre entidad federativa 
                     print(number,line)
                     print(len(line))
