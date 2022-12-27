@@ -238,13 +238,78 @@ def borrar(nombreAr): #depuracion de lineas del pdf para quedar los campos dE: R
                          print(reg[1]+"\n")
                          fp.write(reg[1]+"\n")
                #fp.write(line)
-    os.system("Pause")
 
+
+def numeroLineasNueve(nombreAr):
+        archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+        l1 = []
+        with open(archivoTxt, 'r') as fp:
+            l1 = fp.readlines()
+        with open(archivoTxt, 'w') as fp:
+            for number, line in enumerate(l1):
+                print(number,line, len(line))
+                if (len(line)!=1):
+                    fp.write(line)
+
+
+def campoListo(nombreAr):
+        archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+        l1 = []
+        with open(archivoTxt, 'r') as fp:
+            l1 = fp.readlines()
+        with open(archivoTxt, 'w') as fp:
+            for number, line in enumerate(l1):
+                print(number,line)
+                if number in [0,1,2,3,4,5,6,7,8]:
+                       if number == 0:#rfc
+                           fp.write(line)
+                       if number == 1:#razon social
+                           fp.write(line)
+                       if number == 2:#codigo postal
+                           fp.write(line)
+                       if number == 3:#nombre de vialidad
+                            nomVial=line.partition('Nombre de Vialidad:')
+                            print(nomVial)
+                            if ('Nombre de Vialidad:' in nomVial):
+                                 print(nomVial[2]+"\n")
+                                 fp.write(nomVial[2]+"\n")
+                       if number == 4:#numero interior
+                            numInt=line.partition('NÃºmero Interior:')
+                            print(numInt)
+                            if ('NÃºmero Interior:' in numInt):
+                                 print(numInt[2]+"\n")
+                                 fp.write(numInt[2]+"\n")
+                       if number == 5:#tipo de vialidad
+                            tipVial=line.partition('Tipo de Vialidad:')
+                            print(numInt)
+                            if ('Tipo de Vialidad:' in tipVial):
+                                 print(tipVial[2]+"\n")
+                                 fp.write(tipVial[2]+"\n")
+                       if number == 6:#numero exterior
+                            numExt=line.partition('NÃºmero Exterior:')
+                            print(numExt)
+                            if ('NÃºmero Exterior:' in numExt):
+                                 print(numExt[2]+"\n")
+                                 fp.write(numExt[2]+"\n")
+                       if number == 7:#nombre de la colonia 
+                            nomCol=line.partition('Nombre de la Colonia:')
+                            print(numExt)
+                            if ('Nombre de la Colonia:' in nomCol):
+                                 print(nomCol[2]+"\n")
+                                 fp.write(nomCol[2]+"\n")
+                       if number == 8:#regimen 
+                            numExt=line.partition('RÃ©gimen General de Ley Personas Morales')
+                            print(numExt)
+                            if ('RÃ©gimen General de Ley Personas Morales' in numExt):
+                                 print(numExt[1]+"\n")
+                                 fp.write(numExt[1]+"\n")
 
 def inicio():#funcion en donde se introduce la ruta del archivo y el nombre del archivo 
         nombreAr = input("introduzca el nombre del archivo que se encuentra en la direccion: C:/Users/mmartinez/Documents/CSF/")
         archivo =  os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".pdf")
         conviertePDFaTXT(archivo,nombreAr)
         borrar(nombreAr)
-
+        numeroLineasNueve(nombreAr)
+        campoListo(nombreAr)
+        numeroLineasNueve(nombreAr)
 inicio()#inicio del programa
