@@ -164,21 +164,62 @@ def borrar(nombreAr):
                          tipoViaL=list(tipoVialid)
                          print(tipoViaL)
                          fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad 
+                    elif('NÃºmero Exterior:' not in tipoVialid):
+                         nomExt=line.partition('NÃºmero Exterior:')
+                         if ('NÃºmero Exterior:' in nomExt):
+                             print(nomExt)
+                             fp.write(line)
                if number == 52:
                     print(number,line)
                     tipoVialid=line.partition('Tipo de Vialidad:')
                     if ('Tipo de Vialidad:' in tipoVialid):
                          tipoViaL=list(tipoVialid)
                          print(tipoViaL)
-                         fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad  
+                         fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad
+                    elif('NÃºmero Exterior:' not in tipoVialid):
+                         nomExt=line.partition('NÃºmero Exterior:')
+                         if ('NÃºmero Exterior:' in nomExt):
+                             print(nomExt)
+                             fp.write(line)
+                         else:
+                             nomCol=line.partition('Nombre del Municipio o DemarcaciÃ³n Territorial:')#guardar numero exterior
+                             if ('Nombre del Municipio o DemarcaciÃ³n Territorial:' in nomCol):
+                                 print(numExt[0]+"\n")
+                                 fp.write(numExt[0]+"\n")
+                             elif('Nombre del Municipio o DemarcaciÃ³n Territorial:' not in nomCol):
+                                print(line)
+                                fp.write(line)
                if number == 53:
                     print(number,line)
-                    if (1==1):
-                        fp.write(line)
+                    nomMun=line.partition('Nombre del Municipio o DemarcaciÃ³n Territorial:')#guardar numero exterior
+                    if ('Nombre del Municipio o DemarcaciÃ³n Territorial:' in nomMun):
+                         print(nomMun[0]+"\n")
+                         fp.write(nomMun[0]+"\n")
+                    elif('Nombre del Municipio o DemarcaciÃ³n Territorial:' not in nomMun):
+                        nomCol=line.partition('Nombre de la Colonia:')
+                        print(nomCol)
+                        if('Nombre de la Colonia:' in nomCol):
+                            print(nomCol[1]+" "+nomCol[2]+"\n")
+                            fp.write(nomCol[1]+" "+nomCol[2]+"\n")
+                        else:
+                             numExt=line.partition('NÃºmero Exterior:')
+                             if ('NÃºmero Exterior:' in numExt):
+                                 print(numExt)
+                                 print(numExt[1]+" "+numExt[2]+"\n")
+                                 fp.write(numExt[1]+" "+numExt[2]+"\n")
                if number == 54:
                     print(number,line)
-                    if (1==1):
-                        fp.write(line)
+                    nomMun=line.partition('Nombre del Municipio o DemarcaciÃ³n Territorial:')#guardar numero exterior
+                    if ('Nombre del Municipio o DemarcaciÃ³n Territorial:' in nomMun):
+                         print(nomMun[0]+"\n")
+                         fp.write(nomMun[0]+"\n")
+                    elif('Nombre del Municipio o DemarcaciÃ³n Territorial:' not in nomMun):
+                        corEli=line.partition('Correo ElectrÃ³nico:')
+                        if('Correo ElectrÃ³nico:' in corEli):
+                            print("esta linea no se imprime")
+                        else:
+                            print(line)
+                            fp.write(line)
                if number == 67:
                     print(number,line)
                     if (1==1):
