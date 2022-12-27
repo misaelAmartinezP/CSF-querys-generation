@@ -7,7 +7,7 @@ def conviertePDFaTXT(archivo, nombreAr):#convertir el archivo dpf a txt
         doc.save("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
         print("Documento Generado")
 
-def borrar(nombreAr):
+def borrar(nombreAr): #depuracion de lineas del pdf para quedar los campos dE: RFC, RAZON SOCIAL, CODIGO POSTAL, NOMBRE DE VIALIDAD, NUMERO INTERIOR, TIPO DE VIALIDAD, NUMERO EXTERIOR, NOMBRE COLONIA, REGIMEN 
     archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
     l1 = []
     with open(archivoTxt, 'r') as fp:
@@ -198,11 +198,11 @@ def borrar(nombreAr):
                     elif('Nombre del Municipio o DemarcaciÃ³n Territorial:' not in nomMun):
                         nomCol=line.partition('Nombre de la Colonia:')
                         print(nomCol)
-                        if('Nombre de la Colonia:' in nomCol):
+                        if('Nombre de la Colonia:' in nomCol):# nombre de la colonia
                             print(nomCol[1]+" "+nomCol[2]+"\n")
                             fp.write(nomCol[1]+" "+nomCol[2]+"\n")
                         else:
-                             numExt=line.partition('NÃºmero Exterior:')
+                             numExt=line.partition('NÃºmero Exterior:')#numero exterior
                              if ('NÃºmero Exterior:' in numExt):
                                  print(numExt)
                                  print(numExt[1]+" "+numExt[2]+"\n")
@@ -213,21 +213,30 @@ def borrar(nombreAr):
                     if ('Nombre del Municipio o DemarcaciÃ³n Territorial:' in nomMun):
                          print(nomMun[0]+"\n")
                          fp.write(nomMun[0]+"\n")
-                    elif('Nombre del Municipio o DemarcaciÃ³n Territorial:' not in nomMun):
+                    elif('Nombre del Municipio o DemarcaciÃ³n Territorial:' not in nomMun):#eliminar nombre del municipio
                         corEli=line.partition('Correo ElectrÃ³nico:')
-                        if('Correo ElectrÃ³nico:' in corEli):
+                        if('Correo ElectrÃ³nico:' in corEli):#eliminar correo
                             print("esta linea no se imprime")
-                        else:
-                            print(line)
-                            fp.write(line)
+                        elif('Correo ElectrÃ³nico:' not in corEli):
+                            entCall=line.partition('Entre Calle:')
+                            if('Entre Calle:' in entCall): #eliminar entre calle
+                                print("Esta linea no se imprime")
+                            else:
+                                print(line)
+                                fp.write(line)
                if number == 67:
                     print(number,line)
-                    if (1==1):
-                        fp.write(line)
+                    reg=line.partition('RÃ©gimen General de Ley Personas Morales')#regimen
+                    print(reg)
+                    if ('RÃ©gimen General de Ley Personas Morales' in reg):
+                         print(reg[1]+"\n")
+                         fp.write(reg[1]+"\n")
                if number == 69:
-                    print(number,line)
-                    if (1==1):
-                        fp.write(line)
+                    reg=line.partition('RÃ©gimen General de Ley Personas Morales')#regimen
+                    print(reg)
+                    if ('RÃ©gimen General de Ley Personas Morales' in reg):
+                         print(reg[1]+"\n")
+                         fp.write(reg[1]+"\n")
                #fp.write(line)
     os.system("Pause")
 
