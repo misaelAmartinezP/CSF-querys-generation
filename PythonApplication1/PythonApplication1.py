@@ -314,7 +314,7 @@ def query(nombreAr, directorio):
             l1 = fp.readlines()
         with open(archivoTxt, 'w') as fp:
                print("insert in to AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+" ,"+l1[4]+" ,"+l1[5]+" ,"+l1[6]+" ,"+l1[7]+" ,"+l1[8]+")")
-               fp.write("insert into AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+" ,"+l1[4]+" ,"+l1[5]+" ,"+l1[6]+" ,"+l1[7]+" ,"+l1[8]+");") 
+               fp.write("insert into AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+l1[6]+l1[4]+" ,"+l1[5]+" ,"+l1[7]+" ,"+l1[8]+");") 
 
 
 def inicio():#funcion en donde se introduce la ruta del archivo y el nombre del archivo 
