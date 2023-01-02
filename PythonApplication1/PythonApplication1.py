@@ -1,14 +1,14 @@
 import aspose.words as aw
 import os
+from os import path
 
 def conviertePDFaTXT(archivo, nombreAr):#convertir el archivo dpf a txt 
         doc = aw.Document(archivo)
         print("Generando el .txt")
         doc.save("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
         print("Documento Generado")
-
-def borrar(nombreAr): #depuracion de lineas del pdf para quedar los campos dE: RFC, RAZON SOCIAL, CODIGO POSTAL, NOMBRE DE VIALIDAD, NUMERO INTERIOR, TIPO DE VIALIDAD, NUMERO EXTERIOR, NOMBRE COLONIA, REGIMEN 
-    archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los campos dE: RFC, RAZON SOCIAL, CODIGO POSTAL, NOMBRE DE VIALIDAD, NUMERO INTERIOR, TIPO DE VIALIDAD, NUMERO EXTERIOR, NOMBRE COLONIA, REGIMEN 
+    archivoTxt= os.path.join(directorio + "/" + nombreAr +".txt")
     l1 = []
     with open(archivoTxt, 'r') as fp:
         l1 = fp.readlines()
@@ -240,8 +240,8 @@ def borrar(nombreAr): #depuracion de lineas del pdf para quedar los campos dE: R
                #fp.write(line)
 
 
-def numeroLineasNueve(nombreAr):
-        archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+def numeroLineasNueve(nombreAr, directorio):
+        archivoTxt= os.path.join(directorio+"/" + nombreAr +".txt")
         l1 = []
         with open(archivoTxt, 'r') as fp:
             l1 = fp.readlines()
@@ -252,8 +252,8 @@ def numeroLineasNueve(nombreAr):
                     fp.write(line)
 
 
-def campoListo(nombreAr):
-        archivoTxt= os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+def campoListo(nombreAr, directorio):
+        archivoTxt= os.path.join(directorio + "/" + nombreAr +".txt")
         l1 = []
         with open(archivoTxt, 'r') as fp:
             l1 = fp.readlines()
@@ -304,12 +304,32 @@ def campoListo(nombreAr):
                                  print(numExt[1]+"\n")
                                  fp.write(numExt[1]+"\n")
 
+
+
+
+def query(nombreAr, directorio):
+        archivoTxt= os.path.join(directorio+ "/" + nombreAr +".txt")
+        l1 = []
+        with open(archivoTxt, 'r') as fp:
+            l1 = fp.readlines()
+        with open(archivoTxt, 'w') as fp:
+               print("insert in to AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+" ,"+l1[4]+" ,"+l1[5]+" ,"+l1[6]+" ,"+l1[7]+" ,"+l1[8]+")")
+               fp.write("insert into AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+" ,"+l1[4]+" ,"+l1[5]+" ,"+l1[6]+" ,"+l1[7]+" ,"+l1[8]+");") 
+
+
 def inicio():#funcion en donde se introduce la ruta del archivo y el nombre del archivo 
-        nombreAr = input("introduzca el nombre del archivo que se encuentra en la direccion: C:/Users/mmartinez/Documents/CSF/")
-        archivo =  os.path.join("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".pdf")
+        dir=input("introduzca el directorio donde se encuentran los archivos:")
+        directorio=dir.replace("\\", "/")
+        print(directorio)
+        nombreAr = input("introduzca el nombre del archivo:")
+        archivo =  os.path.join(directorio + "/" + nombreAr +".pdf")
         conviertePDFaTXT(archivo,nombreAr)
-        borrar(nombreAr)
-        numeroLineasNueve(nombreAr)
-        campoListo(nombreAr)
-        numeroLineasNueve(nombreAr)
+        borrar(nombreAr, directorio)
+        numeroLineasNueve(nombreAr, directorio)
+        campoListo(nombreAr, directorio)
+        numeroLineasNueve(nombreAr, directorio)
+        query(nombreAr, directorio)
+
+        
+
 inicio()#inicio del programa
