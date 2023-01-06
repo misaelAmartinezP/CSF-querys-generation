@@ -16,7 +16,7 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
         l1 = fp.readlines()
     with open(archivoTxt, 'w') as fp:
         for number, line in enumerate(l1):
-           if number in [4,5,6,45,46,47,48,49,50,51,52,53,54,66,67,68,69]:
+           if number in [4,5,6,40,41,42,45,46,47,48,49,50,51,52,53,54,66,67,68,69]:
                if number == 4: #RFC
                     print(number, line)
                     print(len(line))
@@ -56,6 +56,38 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                                 break
                         fp.write(" ".join(raSoArr)+"\n")
                         print(" ".join(raSoArr)+"\n")
+               if number == 40:#codigo postal y nombre de vialidad
+                    print(number, line)
+                    print(len(line))
+                    if (len(line)!=1):
+                      if (len(line) == 21): #division del codigo postal 
+                             cp=line.split(':')
+                             fp.write(cp[1])
+                             print(cp[1])
+                      elif(len(line) >=22): #tipo vialidad
+                              tipVial=line.partition('Tipo de Vialidad:') 
+                              print(tipVial)
+                              tipoVialStrAux=" ".join (tipVial[0])
+                              if ('Tipo de Vialidad:' in tipVial):
+                                  tipVialAux=tipoVialStrAux.replace('Tipo de Vialidad:', " ")
+                                  tipVialidad=list(tipVial)
+                                  tipVialidadStr=" ".join(tipVialidad)
+                                  cp=tipVialidadStr.partition('CÃ³digo Postal:')
+                                  print(cp)
+                                  #fp.write(cp[0]+"\n") #guarda cp
+                                  fp.write(tipVialidad[2]+"\n")#guarda tipo de vialidad
+                                  #print(cp[0]+"\n")
+                                  print(tipVialidad[2]+"\n")
+                              else: 
+                                  print(line)
+                                  fp.write(line)
+               if number == 41:#
+                    print(number, line)
+                    print(len(line))
+               if number == 42:#
+                    print(number, line)
+                    print(len(line))
+                   
                if number == 45: #codigo postal
                      print(number, line)
                      print(len(line))
