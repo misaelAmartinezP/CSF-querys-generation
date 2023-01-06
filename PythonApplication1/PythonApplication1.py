@@ -2,10 +2,12 @@ import aspose.words as aw
 import os
 from os import path
 
-def conviertePDFaTXT(archivo, nombreAr):#convertir el archivo dpf a txt 
+def conviertePDFaTXT(archivo, nombreAr, directorio):#convertir el archivo dpf a txt 
         doc = aw.Document(archivo)
         print("Generando el .txt")
-        doc.save("C:/Users/mmartinez/Documents/CSF/" + nombreAr +".txt")
+        dir=(directorio+"/"+nombreAr)
+        print(dir)
+        doc.save( dir +".txt")
         print("Documento Generado")
 def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los campos dE: RFC, RAZON SOCIAL, CODIGO POSTAL, NOMBRE DE VIALIDAD, NUMERO INTERIOR, TIPO DE VIALIDAD, NUMERO EXTERIOR, NOMBRE COLONIA, REGIMEN 
     archivoTxt= os.path.join(directorio + "/" + nombreAr +".txt")
@@ -14,7 +16,7 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
         l1 = fp.readlines()
     with open(archivoTxt, 'w') as fp:
         for number, line in enumerate(l1):
-           if number in [4,5,6,45,46,47,48,49,50,51,52,53,54,67,69]:
+           if number in [4,5,6,45,46,47,48,49,50,51,52,53,54,66,67,68,69]:
                if number == 4: #RFC
                     print(number, line)
                     print(len(line))
@@ -31,13 +33,20 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                if number == 5: #razon social
                     print(number, line)
                     print(len(line))
-                    if (len(line)!=35):
+                    raSo=line.partition('Nombre,')
+                    if ('Nombre,' in raSo):
+                        print(raSo[0]+"\n")
+                        fp.write(raSo[0]+"\n")
+                    elif (len(line)!=35):
                         fp.write(line)
                         print(line)
                if number ==  6:
                    print(number, line)
                    print(len(line))
-                   if(len(line)!=38):#razon social con cadena encimado de 'Nombre'
+                   idCIF=line.partition('idCIF:')
+                   if('idCIF:' in idCIF):
+                        print("no se imprime la linea")
+                   elif(len(line)!=38):#razon social con cadena encimado de 'Nombre'
                         raSo=line.split(' ')
                         raSoArr=[]
                         for i in raSo:
@@ -53,8 +62,8 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                      if (len(line)!=1):
                          if (len(line) == 21):#division del codigo postal 
                              cp=line.split(':')
-                             fp.write(cp[1])
-                             print(line)
+                             fp.write(cp[1]+"\n")
+                             print(cp[1]+"\n")
                          else:
                              fp.write(line)
                              print(line)
@@ -163,7 +172,18 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                     if ('Tipo de Vialidad:' in tipoVialid):
                          tipoViaL=list(tipoVialid)
                          print(tipoViaL)
-                         fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad 
+                         tipoVialStrAux=" ".join (tipoViaL)
+                         if('NÃºmero Exterior:' in tipoVialStrAux):#caso en donde numero exterior y tipo de vialidad estan en la misma linea 
+                             print("impresos pero no guardados")
+                             avNomExt=tipoVialStrAux.replace('Tipo de Vialidad:', " ")
+                             avNomExtAux=avNomExt.partition('NÃºmero Exterior:')
+                             print(avNomExtAux)
+                             print(avNomExtAux[0]+"\n"+avNomExtAux[2]+"\n")
+                             fp.write(avNomExtAux[0]+"\n")
+                             fp.write(avNomExtAux[2]+"\n")
+                         else:
+                             print("no paso")
+                             fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad
                     elif('NÃºmero Exterior:' not in tipoVialid):
                          nomExt=line.partition('NÃºmero Exterior:')
                          if ('NÃºmero Exterior:' in nomExt):
@@ -175,7 +195,18 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                     if ('Tipo de Vialidad:' in tipoVialid):
                          tipoViaL=list(tipoVialid)
                          print(tipoViaL)
-                         fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad
+                         tipoVialStrAux=" ".join (tipoViaL)
+                         if('NÃºmero Exterior:' in tipoVialStrAux):#caso en donde numero exterior y tipo de vialidad estan en la misma linea 
+                             print("impresos pero no guardados")
+                             avNomExt=tipoVialStrAux.replace('Tipo de Vialidad:', " ")
+                             avNomExtAux=avNomExt.partition('NÃºmero Exterior:')
+                             print(avNomExtAux)
+                             print(avNomExtAux[0]+"\n"+avNomExtAux[2]+"\n")
+                             fp.write(avNomExtAux[0]+"\n")
+                             fp.write(avNomExtAux[2]+"\n")
+                         else:
+                             print("no paso")
+                             fp.write(tipoViaL[1]+" "+tipoViaL[2])#guarda tipo de vialidad
                     elif('NÃºmero Exterior:' not in tipoVialid):
                          nomExt=line.partition('NÃºmero Exterior:')
                          if ('NÃºmero Exterior:' in nomExt):
@@ -224,6 +255,13 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                             else:
                                 print(line)
                                 fp.write(line)
+               if number ==66:
+                    print(number,line)
+                    reg=line.partition('RÃ©gimen General de Ley Personas Morales')#regimen
+                    print(reg)
+                    if ('RÃ©gimen General de Ley Personas Morales' in reg):
+                         print(reg[1]+"\n")
+                         fp.write(reg[1]+"\n")
                if number == 67:
                     print(number,line)
                     reg=line.partition('RÃ©gimen General de Ley Personas Morales')#regimen
@@ -231,7 +269,15 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                     if ('RÃ©gimen General de Ley Personas Morales' in reg):
                          print(reg[1]+"\n")
                          fp.write(reg[1]+"\n")
+               if number == 68:
+                    print(number,line)
+                    reg=line.partition('RÃ©gimen General de Ley Personas Morales')#regimen
+                    print(reg)
+                    if ('RÃ©gimen General de Ley Personas Morales' in reg):
+                         print(reg[1]+"\n")
+                         fp.write(reg[1]+"\n")
                if number == 69:
+                    print(number,line)
                     reg=line.partition('RÃ©gimen General de Ley Personas Morales')#regimen
                     print(reg)
                     if ('RÃ©gimen General de Ley Personas Morales' in reg):
@@ -285,15 +331,21 @@ def campoListo(nombreAr, directorio):
                             if ('Tipo de Vialidad:' in tipVial):
                                  print(tipVial[2]+"\n")
                                  fp.write(tipVial[2]+"\n")
+                            elif('Tipo de Vialidad:' not in tipVial):
+                                print(tipVial[0]+"\n")
+                                fp.write(tipVial[0]+"\n")
                        if number == 6:#numero exterior
                             numExt=line.partition('NÃºmero Exterior:')
                             print(numExt)
                             if ('NÃºmero Exterior:' in numExt):
                                  print(numExt[2]+"\n")
                                  fp.write(numExt[2]+"\n")
+                            elif('NÃºmero Exterior:' not in numExt):
+                                print(numExt[0]+"\n")
+                                fp.write(numExt[0]+"\n")
                        if number == 7:#nombre de la colonia 
                             nomCol=line.partition('Nombre de la Colonia:')
-                            print(numExt)
+                            print(nomCol)
                             if ('Nombre de la Colonia:' in nomCol):
                                  print(nomCol[2]+"\n")
                                  fp.write(nomCol[2]+"\n")
@@ -305,6 +357,7 @@ def campoListo(nombreAr, directorio):
                                  fp.write(numExt[1]+"\n")
 
 
+                    
 
 
 def query(nombreAr, directorio):
@@ -313,21 +366,23 @@ def query(nombreAr, directorio):
         with open(archivoTxt, 'r') as fp:
             l1 = fp.readlines()
         with open(archivoTxt, 'w') as fp:
-               print("insert in to AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+" ,"+l1[4]+" ,"+l1[5]+" ,"+l1[6]+" ,"+l1[7]+" ,"+l1[8]+")")
+               print("insert in to AcProveedores values( "+ l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+l1[6]+l1[4]+" ,"+l1[5]+" ,"+l1[7]+" ,"+l1[8]+");")
                fp.write("insert into AcProveedores values( " + l1[0]+" ,"+l1[1]+" ,"+l1[2]+" ,"+l1[3]+l1[6]+l1[4]+" ,"+l1[5]+" ,"+l1[7]+" ,"+l1[8]+");") 
 
 
 def inicio():#funcion en donde se introduce la ruta del archivo y el nombre del archivo 
         dir=input("introduzca el directorio donde se encuentran los archivos:")
         directorio=dir.replace("\\", "/")
-        print(directorio)
+        #print(directorio)
         nombreAr = input("introduzca el nombre del archivo:")
         archivo =  os.path.join(directorio + "/" + nombreAr +".pdf")
-        conviertePDFaTXT(archivo,nombreAr)
+        conviertePDFaTXT(archivo,nombreAr, directorio)
+        os.system("pause")
         borrar(nombreAr, directorio)
         numeroLineasNueve(nombreAr, directorio)
         campoListo(nombreAr, directorio)
         numeroLineasNueve(nombreAr, directorio)
+        os.system("pause")
         query(nombreAr, directorio)
 
         
