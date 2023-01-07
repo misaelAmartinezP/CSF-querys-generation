@@ -67,23 +67,34 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                       elif(len(line) >=22): #tipo vialidad
                               tipVial=line.partition('Tipo de Vialidad:') 
                               print(tipVial)
-                              tipoVialStrAux=" ".join (tipVial[0])
+                              tipoVialStrAux=tipVial[0]
+                              print(tipoVialStrAux)
                               if ('Tipo de Vialidad:' in tipVial):
                                   tipVialAux=tipoVialStrAux.replace('Tipo de Vialidad:', " ")
                                   tipVialidad=list(tipVial)
                                   tipVialidadStr=" ".join(tipVialidad)
-                                  cp=tipVialidadStr.partition('CÃ³digo Postal:')
+                                  cp=tipoVialStrAux.partition('CÃ³digo Postal:')
+                                  print("tupla la siguiente linea")
                                   print(cp)
-                                  #fp.write(cp[0]+"\n") #guarda cp
+                                  fp.write(cp[2]+"\n") #guarda cp
                                   fp.write(tipVialidad[2]+"\n")#guarda tipo de vialidad
-                                  #print(cp[0]+"\n")
+                                  print(cp[2]+"\n")
                                   print(tipVialidad[2]+"\n")
                               else: 
                                   print(line)
                                   fp.write(line)
-               if number == 41:#
-                    print(number, line)
+               if number == 41:#nombre de vialidad y numero exterior
+                    print(number,line)
                     print(len(line))
+                    if (len(line)!=1):
+                         nomVial=line.partition('NÃºmero Exterior:')
+                         if('NÃºmero Exterior:' in nomVial):
+                             nomVialAuxStr=" ".join(nomVial)
+                             nomVialAuxRep=nomVialAuxStr.replace('Nombre de Vialidad:', " ")
+                             nomVialAux=nomVialAuxRep.partition('NÃºmero Exterior:')
+                             if('NÃºmero Exterior:' in nomVialAux):
+                                 print(nomVialAux[0]+"\n"+nomVialAux[2]+"\n")
+                                 fp.write(nomVialAux[0]+"\n"+nomVialAux[2]+"\n")#guarda numero exterior 
                if number == 42:#
                     print(number, line)
                     print(len(line))
@@ -347,16 +358,22 @@ def campoListo(nombreAr, directorio):
                            fp.write(line)
                        if number == 3:#nombre de vialidad
                             nomVial=line.partition('Nombre de Vialidad:')
+                            print("entro en la funcion campo listo")
                             print(nomVial)
                             if ('Nombre de Vialidad:' in nomVial):
                                  print(nomVial[2]+"\n")
                                  fp.write(nomVial[2]+"\n")
+                            else: 
+                                print(nomVial)
+                                fp.write(nomVial[0])
                        if number == 4:#numero interior
                             numInt=line.partition('NÃºmero Interior:')
                             print(numInt)
                             if ('NÃºmero Interior:' in numInt):
                                  print(numInt[2]+"\n")
                                  fp.write(numInt[2]+"\n")
+                            else:
+                                fp.write(numInt[0]+"\n")
                        if number == 5:#tipo de vialidad
                             tipVial=line.partition('Tipo de Vialidad:')
                             print(numInt)
