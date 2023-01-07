@@ -60,9 +60,13 @@ def borrar(nombreAr,directorio): #depuracion de lineas del pdf para quedar los c
                     print(number, line)
                     print(len(line))
                     if (len(line)!=1):
-                      if (len(line) == 21): #division del codigo postal 
-                             cp=line.split(':')
-                             fp.write(cp[1])
+                      if (len(line) == 21): #division del codigo postal
+                             cp=line.partition("PÃ¡gina")
+                             if('PÃ¡gina' in cp):
+                                 print("excepcion no se imprime")
+                             else:
+                                 cp=line.split(':')
+                                 fp.write(cp[1])
                              print(cp[1])
                       elif(len(line) >=22): #tipo vialidad
                               tipVial=line.partition('Tipo de Vialidad:') 
